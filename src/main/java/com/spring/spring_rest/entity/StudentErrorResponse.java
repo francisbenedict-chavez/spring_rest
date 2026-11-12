@@ -3,12 +3,12 @@ package com.spring.spring_rest.entity;
 public class StudentErrorResponse {
   private int status;
   private String message;
-  private long timeStamp;
+  private Long timeStamp;
 
   public StudentErrorResponse() {
   }
 
-  public StudentErrorResponse(int status, String message, long timeStamp) {
+  public StudentErrorResponse(int status, String message, Long timeStamp) {
     this.status = status;
     this.message = message;
     this.timeStamp = timeStamp;
@@ -30,11 +30,11 @@ public class StudentErrorResponse {
     this.message = message;
   }
 
-  public long getTimeStamp() {
+  public Long getTimeStamp() {
     return timeStamp;
   }
 
-  public void setTimeStamp(long timeStamp) {
+  public void setTimeStamp(Long timeStamp) {
     this.timeStamp = timeStamp;
   }
 

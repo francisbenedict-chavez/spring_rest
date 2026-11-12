@@ -1,24 +1,33 @@
 package com.spring.spring_rest.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
+
 public class StudentDto {
 
-  private long id;
+  private Long id;
+
+  @Size(min = 2, max = 50, message = "Must be 2 to 50 characters.")
   private String firstName;
+
+  @Size(min = 2, max = 50, message = "Must be 2 to 50 characters.")
   private String lastName;
+
+  @Email(message = "Email is required and should be valid.")
   private String email;
 
-  public StudentDto(long id, String firstName, String lastName, String email) {
+  public StudentDto(Long id, String firstName, String lastName, String email) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
   }
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
