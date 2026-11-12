@@ -20,6 +20,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Provides REST endpoints for creating, retrieving, updating, and deleting
+ * students.
+ *
+ * <p>
+ * The main collection endpoints delegate to {@link StudentService}.
+ * This controller also contains separate in-memory demonstration endpoints.
+ * </p>
+ */
 @RestController
 @RequestMapping("/api/students")
 public class StudentRestController {
@@ -28,11 +37,22 @@ public class StudentRestController {
 
   private StudentService studentService;
 
+  /**
+   * Creates the controller with the student service used by database-backed
+   * endpoints.
+   *
+   * @param studentService service for student operations
+   */
   public StudentRestController(StudentService studentService) {
     this.studentService = studentService;
   }
 
-  // add students REST API
+  /**
+   * Creates a student from the validated request body.
+   *
+   * @param theStudentDto student data to create
+   * @return the created student and an HTTP {@code 201 Created} status
+   */
   @PostMapping
   public ResponseEntity<StudentDto> createStudents(
       @Valid @RequestBody StudentDto theStudentDto) {
@@ -40,23 +60,46 @@ public class StudentRestController {
     return new ResponseEntity<>(saved, HttpStatus.CREATED);
   }
 
-  // @PostConstruct
-  // public void initialize() {
-  // theStudents = new ArrayList<>();
+  /**
+   * Initializes the in-memory list used by the demonstration endpoints.
+   *
+   * <p>
+   * This method runs after the controller has been constructed.
+   * </p>
+   */
+  @PostConstruct
+  public void initialize() {
+    theStudents = new ArrayList<>();
 
-  // theStudents.add(new Student(1L, "Light", "Yagami",
-  // "light.yagami@example.com"));
-  // theStudents.add(new Student(2L, "Leslie", "Andrews",
-  // "leslie.andrews@example.com"));
-  // theStudents.add(new Student(3L, "Emma", "Baumgarten",
-  // "emma.baumgarten@example.com"));
-  // }
+    if (studentService.getAllStudents().isEmpty()) {
+      studentService.createStudent(new StudentDto(
+          null, "Light", "Yagami", "light.yagami@example.com"));
+      studentService.createStudent(new StudentDto(
+          null, "Leslie", "Andrews", "leslie.andrews@example.com"));
+      studentService.createStudent(new StudentDto(
+          null, "Emma", "Baumgarten", "emma.baumgarten@example.com"));
+    }
+  }
 
+  /**
+   * Returns all students in the in-memory demonstration list.
+   *
+   * @return the demonstration student list
+   */
   @GetMapping("/students")
   public List<Student> getStudents() {
     return theStudents;
   }
 
+  /**
+   * Returns a student from the in-memory demonstration list by zero-based
+   * list index.
+   *
+   * @param studentId zero-based index of the student in the list
+   * @return the student at that index
+   * @throws StudentNotFoundException if the index is negative or outside the
+   *                                  list
+   */
   @GetMapping("/students/{studentId}")
   public Student getStudent(@PathVariable int studentId) {
 
@@ -68,6 +111,13 @@ public class StudentRestController {
     return theStudents.get(studentId);
   }
 
+  /**
+   * Retrieves a student from the database by ID.
+   *
+   * @param id database ID of the student to retrieve
+   * @return the student and an HTTP {@code 200 OK} status
+   * @throws StudentNotFoundException if no student has the specified ID
+   */
   @GetMapping("{id}")
   public ResponseEntity<StudentDto> getStudentById(@PathVariable Long id) {
     StudentDto studentDto = studentService.getStudentById(id);
@@ -75,6 +125,11 @@ public class StudentRestController {
     return ResponseEntity.ok(studentDto);
   }
 
+  /**
+   * Retrieves all students from the database.
+   *
+   * @return the students and an HTTP {@code 200 OK} status
+   */
   @GetMapping
   public ResponseEntity<List<StudentDto>> getAllStudents() {
     List<StudentDto> students = studentService.getAllStudents();
@@ -82,6 +137,14 @@ public class StudentRestController {
     return ResponseEntity.ok(students);
   }
 
+  /**
+   * Replaces the data of a student in the database.
+   *
+   * @param id            database ID of the student to update
+   * @param theStudentDto replacement student data
+   * @return the updated student and an HTTP {@code 200 OK} status
+   * @throws StudentNotFoundException if no student has the specified ID
+   */
   @PutMapping("{id}")
   public ResponseEntity<StudentDto> updateStudent(
       @PathVariable Long id, @Valid @RequestBody StudentDto theStudentDto) {
@@ -90,6 +153,14 @@ public class StudentRestController {
     return ResponseEntity.ok(studentDto);
   }
 
+  /**
+   * Updates the non-null fields of a student in the database.
+   *
+   * @param id            database ID of the student to update
+   * @param theStudentDto student fields to apply
+   * @return the updated student and an HTTP {@code 200 OK} status
+   * @throws StudentNotFoundException if no student has the specified ID
+   */
   @PatchMapping("{id}")
   public ResponseEntity<StudentDto> patchStudent(
       @PathVariable Long id, @Valid @RequestBody StudentDto theStudentDto) {
@@ -98,6 +169,13 @@ public class StudentRestController {
     return ResponseEntity.ok(studentDto);
   }
 
+  /**
+   * Deletes the student with the specified ID.
+   *
+   * @param id ID of the student to delete
+   * @return a success message and an HTTP {@code 200 OK} status
+   * @throws StudentNotFoundException if no student has the specified ID
+   */
   @DeleteMapping("{id}")
   public ResponseEntity<String> deleteStudentById(
       @PathVariable Long id) {

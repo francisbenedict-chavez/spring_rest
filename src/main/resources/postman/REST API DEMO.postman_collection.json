@@ -11,7 +11,19 @@
       "name": "sample request",
       "request": {
         "method": "GET",
-        "header": []
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/test/hello",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "test",
+            "hello"
+          ]
+        }
       },
       "response": [
         {
@@ -38,7 +50,7 @@
           "header": [
             {
               "key": "Content-Type",
-              "value": "text/plain;charset=UTF-8"
+              "value": "application/json"
             },
             {
               "key": "Content-Length",
@@ -46,7 +58,7 @@
             },
             {
               "key": "Date",
-              "value": "Wed, 11 Nov 2026 08:28:37 GMT"
+              "value": "Thu, 12 Nov 2026 07:57:50 GMT"
             },
             {
               "key": "Keep-Alive",
@@ -68,7 +80,16 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": ""
+          "raw": "http://localhost:8080/api/students",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "students"
+          ]
         }
       },
       "response": [
@@ -99,12 +120,12 @@
               "value": "application/json"
             },
             {
-              "key": "Content-Length",
-              "value": "132"
+              "key": "Transfer-Encoding",
+              "value": "chunked"
             },
             {
               "key": "Date",
-              "value": "Wed, 11 Nov 2026 08:03:00 GMT"
+              "value": "Thu, 12 Nov 2026 08:03:27 GMT"
             },
             {
               "key": "Keep-Alive",
@@ -116,7 +137,7 @@
             }
           ],
           "cookie": [],
-          "body": "[\n  {\n    \"firstName\": \"Light\",\n    \"lastName\": \"Yagami\"\n  },\n  {\n    \"firstName\": \"Leslie\",\n    \"lastName\": \"Andrews\"\n  },\n  {\n    \"firstName\": \"Emma\",\n    \"lastName\": \"Baumgarten\"\n  }\n]"
+          "body": "[\n  {\n    \"id\": 1,\n    \"firstName\": \"Light\",\n    \"lastName\": \"Yagami\",\n    \"email\": \"light.yagami@example.com\"\n  },\n  {\n    \"id\": 2,\n    \"firstName\": \"Leslie\",\n    \"lastName\": \"Andrews\",\n    \"email\": \"leslie.andrews@example.com\"\n  },\n  {\n    \"id\": 3,\n    \"firstName\": \"Emma\",\n    \"lastName\": \"Baumgarten\",\n    \"email\": \"emma.baumgarten@example.com\"\n  }\n]"
         }
       ]
     },
@@ -126,7 +147,17 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": ""
+          "raw": "http://localhost:8080/api/students/abcdefg",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "students",
+            "abcdefg"
+          ]
         }
       },
       "response": [
@@ -136,7 +167,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/students/0",
+              "raw": "http://localhost:8080/api/students/1",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -145,7 +176,7 @@
               "path": [
                 "api",
                 "students",
-                "0"
+                "1"
               ]
             }
           },
@@ -158,12 +189,12 @@
               "value": "application/json"
             },
             {
-              "key": "Content-Length",
-              "value": "41"
+              "key": "Transfer-Encoding",
+              "value": "chunked"
             },
             {
               "key": "Date",
-              "value": "Wed, 11 Nov 2026 08:07:29 GMT"
+              "value": "Thu, 12 Nov 2026 08:07:24 GMT"
             },
             {
               "key": "Keep-Alive",
@@ -175,7 +206,7 @@
             }
           ],
           "cookie": [],
-          "body": "{\n  \"firstName\": \"Light\",\n  \"lastName\": \"Yagami\"\n}"
+          "body": "{\n  \"id\": 1,\n  \"firstName\": \"Light\",\n  \"lastName\": \"Yagami\",\n  \"email\": \"light.yagami@example.com\"\n}"
         },
         {
           "name": "invalid student_id index",
@@ -352,6 +383,587 @@
           ],
           "cookie": [],
           "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid data. Only integers are accepted\",\n  \"timeStamp\": 1794385596138\n}"
+        }
+      ]
+    },
+    {
+      "name": "add_student",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "// {\r\n//     \"firstName\": \"Light\",\r\n//     \"lastName\": \"Yagami\",\r\n//     \"email\": \"light.yagami@example.com\"\r\n// }\r\n// {\r\n//     \"firstName\": \"Leslie\",\r\n//     \"lastName\": \"Andrews\",\r\n//     \"email\": \"leslie.andrews@example.com\"\r\n// }\r\n{\r\n    \"firstName\": \"Emma\",\r\n    \"lastName\": \"Baumgarten\",\r\n    \"email\": \"emma.baumgarten@example.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/students",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "students"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "valid add_student",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstName\": \"Anamel\",\r\n    \"lastName\": \"Alirasul\",\r\n    \"email\": \"anamel.alirasul@example.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/students",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "students"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 12 Nov 2026 08:10:10 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"id\": 4,\n  \"firstName\": \"Anamel\",\n  \"lastName\": \"Alirasul\",\n  \"email\": \"anamel.alirasul@example.com\"\n}"
+        },
+        {
+          "name": "invalid add_student",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstName\": \" \", \r\n    \"lastName\": \"Andrews\",\r\n    \"email\": \"leslie\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/students",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "students"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 12 Nov 2026 06:05:44 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"firstName\": \"Must be 2 to 50 characters.\",\n  \"email\": \"Email is required and should be valid.\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "get_student_by_id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/students",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "students"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "valid get_student_by_id",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/students/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "students",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 12 Nov 2026 06:19:28 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"id\": 1,\n  \"firstName\": \"Light\",\n  \"lastName\": \"Yagami\",\n  \"email\": \"light.yagami@example.com\"\n}"
+        },
+        {
+          "name": "invalid get_student_by_id index",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/students/999",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "students",
+                "999"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 12 Nov 2026 06:20:08 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"status\": 404,\n  \"message\": \"Student id 999 not found!\",\n  \"timeStamp\": 1794464408778\n}"
+        },
+        {
+          "name": "invalid get_student_by_id data type",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/students/abcdefg",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "students",
+                "abcdefg"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 12 Nov 2026 06:21:40 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid data. Only integers are accepted\",\n  \"timeStamp\": 1794464500202\n}"
+        },
+        {
+          "name": "valid get_all_students",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/students",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "students"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 12 Nov 2026 08:12:02 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n  {\n    \"id\": 1,\n    \"firstName\": \"Light\",\n    \"lastName\": \"Yagami\",\n    \"email\": \"light.yagami@example.com\"\n  },\n  {\n    \"id\": 2,\n    \"firstName\": \"Leslie\",\n    \"lastName\": \"Andrews\",\n    \"email\": \"leslie.andrews@example.com\"\n  },\n  {\n    \"id\": 3,\n    \"firstName\": \"Emma\",\n    \"lastName\": \"Baumgarten\",\n    \"email\": \"emma.baumgarten@example.com\"\n  },\n  {\n    \"id\": 4,\n    \"firstName\": \"Anamel\",\n    \"lastName\": \"Alirasul\",\n    \"email\": \"anamel.alirasul@example.com\"\n  }\n]"
+        }
+      ]
+    },
+    {
+      "name": "valid update_student",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firstName\": \"Dark\",\r\n    \"lastName\": \"Yagami\",\r\n    \"email\": \"dark.yagami@example.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/students/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "students",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "update_student",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstName\": \"Dark\",\r\n    \"lastName\": \"Yagami\",\r\n    \"email\": \"dark.yagami@example.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/students/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "students",
+                "1"
+              ]
+            }
+          },
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 12 Nov 2026 07:03:23 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"id\": 1,\n  \"firstName\": \"Dark\",\n  \"lastName\": \"Yagami\",\n  \"email\": \"dark.yagami@example.com\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "patch_student",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"leslie@example.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/students/2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "students",
+            "2"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "valid patch_student",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"leslie@example.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/students/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "students",
+                "2"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 12 Nov 2026 07:12:44 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"id\": 2,\n  \"firstName\": \"leslie\",\n  \"lastName\": \"Andrews\",\n  \"email\": \"leslie@example.com\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "delete_student",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/students/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "students",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "valid delete_student",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/students/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "students",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "text",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain;charset=UTF-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "29"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 12 Nov 2026 07:24:47 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "Student deleted successfully!"
         }
       ]
     }

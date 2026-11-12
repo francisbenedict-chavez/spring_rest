@@ -5,13 +5,14 @@ import com.spring.spring_rest.entity.Student;
 import com.spring.spring_rest.exception.StudentNotFoundException;
 import com.spring.spring_rest.mapper.StudentMapper;
 import com.spring.spring_rest.repository.StudentRepository;
-
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-
 import org.springframework.stereotype.Service;
 
+/**
+ * Implements student management operations using
+ * {@link StudentRepository} for persistence.
+ */
 @Service
 public class StudentServiceImplement implements StudentService {
 
